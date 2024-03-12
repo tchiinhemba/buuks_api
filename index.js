@@ -9,6 +9,8 @@ const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
+const dataset = [];
+
 async function loadSavedCredentialsIfExist() {
     try {
         const content = await fs.readFile(TOKEN_PATH);
@@ -52,10 +54,10 @@ async function authorize() {
 }
 
 async function listFiles(authClient) {
-    const drive = google.drive({ version: '3', auth: authClient })
+    const drive = google.drive({ version: 'v3', auth: authClient })
     const res = await drive.files.list({
-        pageSize: 10,
-        fields: 'nextPageToken, files(id, name)',
+        pageSize: 100,
+        fields: 'nextPageToken, files(id, name, webContentLink)',
     });
 
     const files = res.data.files;
@@ -68,8 +70,14 @@ async function listFiles(authClient) {
     console.log('Files:');
 
     files.map((file) => {
-        console.log(`${file.name} ${file.id}`);
+        dataset.push({
+            file_id: file.id,
+            file_name: file.name,
+            file_link: file.webContentLink
+        });
     })
+
+    console.log(dataset)
 }
 
 
