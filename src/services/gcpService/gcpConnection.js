@@ -81,5 +81,6 @@ async function listFiles(authClient) {
 }
 
 
-
 authorize().then(listFiles).catch(console.error);
+
+export { listFiles, dataset }
