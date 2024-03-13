@@ -5,11 +5,13 @@ import process from 'node:process';
 import { authenticate } from '@google-cloud/local-auth';
 import { google } from 'googleapis';
 
+
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
 const dataset = [];
+
 
 async function loadSavedCredentialsIfExist() {
     try {
@@ -76,10 +78,6 @@ async function listFiles(authClient) {
             file_link: file.webContentLink
         });
     })
-
-    console.log(dataset)
 }
 
-
-authorize().then(listFiles).catch(console.error);
-
+console.log(authorize().then(listFiles).catch(console.error))
