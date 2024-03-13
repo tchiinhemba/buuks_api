@@ -1,4 +1,5 @@
 
+import express from 'express'
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
@@ -8,8 +9,6 @@ import { google } from 'googleapis';
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
-
-const dataset = [];
 
 async function loadSavedCredentialsIfExist() {
     try {
@@ -69,17 +68,10 @@ async function listFiles(authClient) {
 
     console.log('Files:');
 
-    files.map((file) => {
-        dataset.push({
-            file_id: file.id,
-            file_name: file.name,
-            file_link: file.webContentLink
-        });
-    })
-
-    console.log(dataset)
+    return files
 }
 
-
-
-authorize().then(listFiles).catch(console.error);
+export {
+    authorize,
+    listFiles
+}
