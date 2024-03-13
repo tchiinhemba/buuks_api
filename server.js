@@ -1,20 +1,30 @@
-import express from 'express';
-import './src/services/gcpService/gcpConnection';
+import express from 'express'
+import dotenv from 'dotenv'
+import { authorize, listFiles } from './gcpConnection.js';
 
-const PORT = 3000;
 
-const app = express();
+dotenv.config()
 
-app.get('/', async (req, res) => {
+const PORT = process.env.PORT || 3000;
+
+const server = express();
+
+async function fetchDataAndStartServer() {
     try {
-        await listFiles(); 
-        res.json(dataset); 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error retrieving data' }); 
-    }
-});
+        const data = await authorize().then(listFiles);
+        console.log(data);
 
-app.listen(PORT, () => {
-    console.log(`Server is running at: http://localhost:${PORT}`);
-});
+        server.get('/', (req, res) => {
+            res.json(data);
+        })
+
+        server.listen(PORT, () => {
+            console.log(`Server is running at: http://localhost:${PORT}`);
+        });
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+fetchDataAndStartServer()
