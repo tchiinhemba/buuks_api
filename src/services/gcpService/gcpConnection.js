@@ -76,10 +76,12 @@ async function listFiles(authClient) {
             file_link: file.webContentLink
         });
     })
-
-    console.log(dataset)
 }
 
 
 authorize().then(listFiles).catch(console.error);
 
+export {
+    listFiles,
+    dataset
+}
