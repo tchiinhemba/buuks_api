@@ -1,14 +1,15 @@
-
-import express from 'express'
+import dotenv from 'dotenv'
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { authenticate } from '@google-cloud/local-auth';
 import { google } from 'googleapis';
 
+dotenv.config()
+
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
-const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
+const TOKEN_PATH = path.join(process.cwd(), process.env.TOKEN);
+const CREDENTIALS_PATH = path.join(process.cwd(), process.env.CREDENTIAL);
 
 async function loadSavedCredentialsIfExist() {
     try {
