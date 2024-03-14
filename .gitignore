@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # custom
-src/auth/credentials*
+src/services/drive/credentials*
