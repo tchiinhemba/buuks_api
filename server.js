@@ -1,6 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import { authorize, listFiles } from './gcpConnection.js';
+import { authorize, listFiles } from './src/services/drive/gcpConnection.js';
 
 
 dotenv.config()
