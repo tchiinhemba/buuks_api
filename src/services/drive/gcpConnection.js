@@ -7,6 +7,8 @@ import { google } from 'googleapis';
 
 dotenv.config()
 
+console.log(process.cwd(), process.env.CREDENTIAL)
+
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
 const TOKEN_PATH = path.join(process.cwd(), process.env.TOKEN);
 const CREDENTIALS_PATH = path.join(process.cwd(), process.env.CREDENTIAL);
