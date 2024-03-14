@@ -1,17 +1,18 @@
-import dotenv from 'dotenv'
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import process from 'node:process';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { authenticate } from '@google-cloud/local-auth';
 import { google } from 'googleapis';
 
-dotenv.config()
 
-console.log(process.cwd(), process.env.CREDENTIAL)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
-const TOKEN_PATH = path.join(process.cwd(), process.env.TOKEN);
-const CREDENTIALS_PATH = path.join(process.cwd(), process.env.CREDENTIAL);
+const TOKEN_PATH = path.join(__dirname, 'token.json');
+const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
 
 async function loadSavedCredentialsIfExist() {
     try {
