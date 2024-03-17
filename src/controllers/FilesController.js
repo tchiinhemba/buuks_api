@@ -1,4 +1,5 @@
-import { authorize, listFiles } from "../services/drive/gcpConnection.js";
+import { authorize } from "../services/connection/gcpConnection.js";
+import { listFiles } from "../services/functions/listFiles.js";
 
 class FilesController {
   async index(req, res) {

@@ -1,12 +1,13 @@
-import { authorize, listFolders } from "../services/drive/gcpConnection.js";
+import { authorize } from "../services/connection/gcpConnection.js";
+import { listFolders } from "../services/functions/listFolders.js";
 
 class CategoryController {
 
   async index(req, res) {
     try {
       const data = await authorize().then(listFolders);
-      // console.log(data)
       res.json(data)
+      console.log(data.length)
     } catch (error) {
       console.log(error);
     }
