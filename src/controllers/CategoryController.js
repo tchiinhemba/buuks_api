@@ -1,18 +1,9 @@
-import { authorize } from "../services/connection/gcpConnection.js";
-import { listFolders } from "../services/functions/listFolders.js";
+import { folders } from "../../server.js";
 
 class CategoryController {
-
-  async index(req, res) {
-    try {
-      const data = await authorize().then(listFolders);
-      res.json(data)
-      console.log(data.length)
-    } catch (error) {
-      console.log(error);
-    }
+  index(req, res) {
+    res.json(folders);
   }
 }
-
 
 export default new CategoryController();
